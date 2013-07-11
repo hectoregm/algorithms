@@ -26,6 +26,23 @@ def insertion_sort(sequence)
   sequence
 end
 
+
+def insertion_sort_ruby(sequence)
+  sequence[1..-1].each_with_index do |key, index|
+    m = index
+    while m >= 0 && sequence[m] > key
+      sequence[m + 1] = sequence[m]
+      m -= 1
+    end
+    sequence[m + 1] = key
+  end
+
+  sequence
+end
+
 puts insertion_sort([5,2,4,6,1,3]) == [1,2,3,4,5,6] ? "insertion_sort([5,2,4,6,1,3]) is correct" : "insertion_sort([5,2,4,6,1,3]) is correct"
-array = (0..10000).to_a
+array = (0..1000).to_a
 puts insertion_sort(array.shuffle) == array ? "insertion_sort(array.shuffle) is correct" : "insertion_sort(array.shuffle) is incorrect"
+
+puts insertion_sort_ruby([5,2,4,6,1,3]) == [1,2,3,4,5,6] ? "insertion_sort([5,2,4,6,1,3]) is correct" : "insertion_sort([5,2,4,6,1,3]) is correct"
+puts insertion_sort_ruby(array.shuffle) == array ? "insertion_sort(array.shuffle) is correct" : "insertion_sort(array.shuffle) is incorrect"
