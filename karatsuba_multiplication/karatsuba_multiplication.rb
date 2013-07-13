@@ -1,6 +1,11 @@
-# http://en.wikipedia.org/wiki/Karatsuba_algorithm
-# Insight is x * y = (a * B^m + b)(c * B^m + d) with m less than the
-# number of digits on x and y and B any base. Using B = 10
+# Summary: Algorithm to multiply two numbers
+# Input: Two numbers x and y
+# Ouput: The result of the product of x and y
+# Complexity: O(n**(lg3))
+# Wiki: http://en.wikipedia.org/wiki/Karatsuba_algorithm
+# Notes: Insight is x * y = (a * B^m + b)(c * B^m + d)
+# with m less than the number of digits on x and y and B any base.
+# Using B = 10
 
 def karatsuba(number_x, number_y)
   # Get the count of digits of the lesser number

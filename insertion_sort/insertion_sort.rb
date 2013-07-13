@@ -1,6 +1,9 @@
-# Insertion Sort: (Cormen Chapter 2) in place algorithm
+# Summary: Algorithm to sort an array of numbers
 # Input: An array of n numbers
-# Output: A sorted array of numbers
+# Ouput: A sorted array of n numbers
+# Complexity: O(n**2)
+# Wiki: http://en.wikipedia.org/wiki/Insertion_sort
+# Cormen: page 18 (hardcover), 39 (pdf)
 
 def insertion_sort(sequence)
   return sequence if sequence.length == 1
