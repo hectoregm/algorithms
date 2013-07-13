@@ -3,7 +3,8 @@
 # Input: An array of numbers
 # Ouput: An array with the begin index, end intex and sum of the
 # subarray with the largest sum
-# Complexity: O(n**2)
+# Complexity: O(n * log n)
+# Uses: recursion, divide & conquer
 # Wiki: http://en.wikipedia.org/wiki/Maximum_subarray_problem
 # Cormen: page 70 (hardcover), 91 (pdf)
 
@@ -62,3 +63,4 @@ end
 
 array = [13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7]
 puts find_maximum_subarray(array, 0, 15).inspect
+puts find_maximum_subarray([-3,-18,-10], 0, 2).inspect

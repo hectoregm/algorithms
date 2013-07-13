@@ -1,7 +1,7 @@
 # Summary: Algorithm to sort an array of numbers
 # Input: An array of n numbers
 # Ouput: A sorted array of n numbers
-# Complexity: O(n*log n)
+# Complexity: O(n * log n)
 # Wiki: http://en.wikipedia.org/wiki/Merge_sort
 # Cormen: page 31 (hardcover), 52 (pdf)
 
