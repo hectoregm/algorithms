@@ -17,7 +17,6 @@ end
 def merge(sequence, left, mid, right)
   subarray_left = sequence[left..mid]
   subarray_right = sequence[(mid + 1)..right]
-  length = subarray_left.length + subarray_right.length
 
   subarray_left.push Float::INFINITY
   subarray_right.push Float::INFINITY
