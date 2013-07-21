@@ -5,6 +5,13 @@
 # Wiki: http://en.wikipedia.org/wiki/Quicksort
 # Cormen: page 170 (hardcover), 191 (pdf)
 
+class Array
+  def swap!(a,b)
+    self[a], self[b] = self[b], self[a]
+  end
+  self
+end
+
 def quicksort(array, left, right, type = :first)
   return 0 if left >= right
   pivot = partition(array, left, right, type)
@@ -17,15 +24,14 @@ def partition(array, left, right, type)
   choose_pivot(array, left, right, type) #array[left]
   pivot = array[left]
   i = left + 1
-  #puts "Partition: #{i}, #{right}"
+
   (i..right).each do |j|
-    #puts "#{array.inspect}, #{left}, #{right}, #{j}"
     if array[j] < pivot
-      array[i], array[j] = array[j], array[i]
+      array.swap!(i,j)
       i += 1
     end
   end
-  array[left], array[i-1] = array[i-1], array[left]
+  array.swap!(left,i-1)
 
   i-1
 end
@@ -34,30 +40,37 @@ def choose_pivot(array, left, right, type = :first)
   case type
   when :first
   when :last
-    array[left], array[right] = array[right], array[left]
+    array.swap!(left,right)
   when :median_of_three
     middle = left + ((right - left) / 2.0).floor
-    pivot = [array[left], array[middle], array[right]].sort[1]
-    #puts "Array: #{array.inspect}"
-    #puts "Middle: #{middle}, Set: #{[left,middle, right].inspect} #{[array[left], array[middle], array[right]].sort}"
-    if array[left] == pivot
-      index = left
-    elsif array[middle] == pivot
-      index = middle
+
+    # pivot = [array[left], array[middle], array[right]].sort[1]
+    if array[left] < array[middle]
+      if array[right] < array[left]
+        index = left
+      elsif array[right] < array[middle]
+        index = right
+      else
+        index = middle
+      end
     else
-      index = right
+      if array[right] < array[middle]
+        index = middle
+      elsif array[left] < array[right]
+        index = left
+      else
+        index = right
+      end
     end
-    #puts "Pivot: #{index} : #{array[index]}"
-    array[left], array[index] = array[index], array[left]
-    #puts "Array: #{array.inspect}"
-  else
-    puts "default"
+
+    array.swap!(left, index)
   end
 end
 
-array_0 = (0...1000).to_a.shuffle!
+
 array_1 = [4,11,13,3,9,12]
 array_2 = [2,4,5,7,1,2,3,6]
+array_3 = (0...1000).to_a.shuffle!
 
 # Check sorting correctness
 
@@ -67,8 +80,8 @@ puts array_1 == [4,11,13,3,9,12].sort ? "quicksort([4,11,13,3,9,12], 0, 5) is co
 quicksort(array_2, 0, 7)
 puts array_2 == [2,4,5,7,1,2,3,6].sort ? "quicksort([2,4,5,7,1,2,3,6], 0, 7) is correct" : "quicksort([2,4,5,7,1,2,3,6], 0, 7) is incorrect"
 
-quicksort(array_0, 0, 999)
-puts array_0 == (0..999).to_a ? "quicksort(<array(size:1000)>, 0, 999) is correct" : "quicksort(<array(size:1000)>, 0, 999) is incorrect"
+quicksort(array_3, 0, 999)
+puts array_3 == (0..999).to_a ? "quicksort(<array(size:1000)>, 0, 999) is correct" : "quicksort(<array(size:1000)>, 0, 999) is incorrect"
 
 # Check comparison correctness
 
@@ -100,19 +113,22 @@ puts "Array on 1000.txt has 10184 comparisons (last): " +
 
 
 array_10 = File.readlines('10.txt').map { |str| str.to_i }
-puts "Array on 10.txt has 29 comparisons (last): " +
+puts "Array on 10.txt has 21 comparisons (median): " +
   "#{quicksort(array_10, 0, 9, :median_of_three) == 21}"
 
 array_100 = File.readlines('100.txt').map { |str| str.to_i }
-puts "Array on 100.txt has 587 comparisons (last): " +
+puts "Array on 100.txt has 518 comparisons (median): " +
   "#{quicksort(array_100, 0, 99, :median_of_three) == 518}"
 
 array_1000 = File.readlines('1000.txt').map { |str| str.to_i }
-puts "Array on 1000.txt has 10184 comparisons (last): " +
+puts "Array on 1000.txt has 8921 comparisons (median): " +
   "#{quicksort(array_1000, 0, 999, :median_of_three) == 8921}"
 
 
 array = File.readlines('QuickSort.txt').map { |str| str.gsub!(/\r\n/, '').to_i }
-puts quicksort(array.dup, 0, (array.size - 1))
-puts quicksort(array.dup, 0, (array.size - 1), :last)
-puts quicksort(array.dup, 0, (array.size - 1), :median_of_three)
+puts "Array on QuickSort.txt has 162085 comparisons (first): " +
+  "#{quicksort(array.dup, 0, (array.size - 1)) == 162085}"
+puts "Array on QuickSort.txt has 164123 comparisons (last): " +
+  "#{quicksort(array.dup, 0, (array.size - 1), :last) == 164123}"
+puts "Array on QuickSort.txt has 138382 comparisons (median): " +
+  "#{quicksort(array.dup, 0, (array.size - 1), :median_of_three) == 138382}"
