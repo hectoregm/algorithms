@@ -5,11 +5,11 @@
 # Wiki: http://en.wikipedia.org/wiki/Merge_sort
 # Cormen: page 31 (hardcover), 52 (pdf)
 
-def merge_sort(sequence, left, right)
+def mergesort(sequence, left = 0, right = sequence.size-1)
   if left < right
     mid = ((left + right) / 2.0).floor
-    merge_sort(sequence, left, mid)
-    merge_sort(sequence, mid + 1, right)
+    mergesort(sequence, left, mid)
+    mergesort(sequence, mid + 1, right)
     merge(sequence, left, mid, right)
   end
 end
@@ -34,10 +34,11 @@ def merge(sequence, left, mid, right)
 
   sequence
 end
-array_0 = (0..1000).to_a
+
 array_1 = [4,11,13,3,9,12]
 array_2 = [2,4,5,7,1,2,3,6]
+array_3 = (0..1000).to_a
 
-puts merge_sort([4,11,13,3,9,12], 0, 5) == array_1 ? "merge_sort([4,11,13,3,9,12], 0 , 5) is correct" : "insertion_sort([4,11,13,3,9,12], 0, 5) is incorrect"
-puts merge_sort([2,4,5,7,1,2,3,6], 0, 7) == array_1 ? "merge_sort([2,4,5,7,1,2,3,6]) is correct" : "insertion_sort([2,4,5,7,1,2,3,6], 0, 7) is incorrect"
-puts merge_sort(array_0.shuffle, 0, array_0.size - 1) == array_0 ? "merge_sort(array.shuffle, 0 , #{array_0.size - 1}) is correct" : "insertion_sort(array.shuffle, 0, #{array_0.size - 1}) is incorrect"
+puts mergesort(array_1) == array_1.sort ? "mergesort([4,11,13,3,9,12]) is correct" : "mergesort([4,11,13,3,9,12]) is incorrect"
+puts mergesort(array_2) == array_2.sort ? "mergesort([2,4,5,7,1,2,3,6]) is correct" : "mergesort([2,4,5,7,1,2,3,6]) is incorrect"
+puts mergesort(array_3.shuffle) == array_3 ? "mergesort(array.shuffle) is correct" : "mergesort(array.shuffle) is incorrect"
