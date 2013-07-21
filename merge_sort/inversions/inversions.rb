@@ -13,7 +13,7 @@ def merge_sort(sequence, left, right)
     inversions_split = merge_inversions(sequence, left, mid, right)[1]
     [sequence, inversions_left + inversions_right + inversions_split]
   else
-    [sequence, 0]    
+    [sequence, 0]
   end
 end
 
