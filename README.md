@@ -1,4 +1,4 @@
 algorithms
 ==========
 
-Implementation of various algorithms in ruby
+Implementation of various algorithms in ruby, javascript and C
